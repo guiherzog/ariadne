@@ -1,7 +1,7 @@
 import serial
 import os
 
-ser = serial.Serial('/dev/ttyACM1',9600)
+ser = serial.Serial('/dev/ttyACM0',9600)
 while True:
     read_serial=ser.readline().decode().strip('\r\n')
     # print(read_serial)
@@ -12,15 +12,12 @@ while True:
     # This will be a static audio, maybe to be used by the orientation system
     if (read_serial == 'FT_2'):
         print('Playing Exit audio')
-        os.system('pico2wave -w 4.wav "To leave this building, firstly you have to use the lift to go to the ground floor. Use the indoor orientation lines to guide you to the lift" && aplay 4.wav')
     # This will generate a static text to give instructions about the room of a user
     if (read_serial == 'FT_3'):
         print('Playing MyRoom audio')
     # This will be a static audio, telling where the user is (the terminal location).
     if (read_serial == 'FT_4'):
         print('Playing Location audio')
-        os.system('pico2wave -w 4.wav "You are in the fourth floor at the Gastrolab." && aplay 4.wav')
-
     # This will wait for a voice command where the user will choose a place to go.    
     if (read_serial == 'FT_5'):
         print('Playing Search audio')
